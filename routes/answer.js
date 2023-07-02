@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const authMiddleware = require('../middleware/auth');
-const { GET_ALL_QUESTIONS, POST_QUESTION, DELETE_QUESTION_BY_ID } = require("../controllers/question");
+const { GET_ANSWERS_BY_QUESTION_ID, POST_ANSWER_TO_QUESTION, DELETE_ANSWER } = require("../controllers/answer");
 
-router.get("/questions", GET_ALL_QUESTIONS);
-router.post("/question", POST_QUESTION);
-router.delete("/question/:id", DELETE_QUESTION_BY_ID);
+router.get("/question/:id/answers", GET_ANSWERS_BY_QUESTION_ID);
+router.post("/question/:id/answer", POST_ANSWER_TO_QUESTION);
+router.delete("/answer/:id", DELETE_ANSWER);
+
+
 
 module.exports = router;

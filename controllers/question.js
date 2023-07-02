@@ -21,12 +21,12 @@ module.exports.POST_QUESTION = async (req, res) => {
             const question = new QuestionModel({
                 id: question_id,
                 subject: req.body.subject,
-                details: req.body.details,
+                details: req.body.details
             });
             await question.save();
 
             const decoded = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
-            UserModel.updateOne({ id: decoded.userId }, { $push: { questions_id: question_id } }).exec();
+            UserModel.updateOne({ id: decoded.userId }, { $push: { question_ids: question_id } }).exec();
 
             res.status(200).json({ response: "Question was created successfully" });
         } else {
@@ -41,7 +41,7 @@ module.exports.POST_QUESTION = async (req, res) => {
 module.exports.DELETE_QUESTION_BY_ID = async (req, res) => {
     try {
         const question = await QuestionModel.deleteOne({ id: req.params.id });
-        const user = await UserModel.updateOne({questions_id: req.params.id}, { $pull: { questions_id: req.params.id } })
+        const user = await UserModel.updateOne({question_ids: req.params.id}, { $pull: { question_ids: req.params.id } })
         res.status(200).json({ question: question , user: user});
     } catch (err) {
         res.status(500).json({ response: "Err in DB" });
