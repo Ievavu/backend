@@ -9,6 +9,9 @@ app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+const userRouter = require("./routes/user");
+
+app.use(userRouter);
 
 mongoose
   .connect(
