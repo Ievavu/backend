@@ -3,6 +3,7 @@ const uniqid = require("uniqid");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+
 module.exports.REGISTER = async (req, res) => {
     try {
         if (req.body.email.includes("@") && req.body.password.length > 5) {
@@ -25,6 +26,7 @@ module.exports.REGISTER = async (req, res) => {
         res.status(500).json({ response: "Error inserting a user into DB" });
     }
 };
+
 
 module.exports.LOGIN = async (req, res) => {
     try {
