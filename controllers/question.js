@@ -42,9 +42,8 @@ module.exports.POST_QUESTION = async (req, res) => {
 module.exports.DELETE_QUESTION_BY_ID = async (req, res) => {
     try {
         const question = await QuestionModel.deleteOne({ id: req.params.id });
-        
-        await UserModel.updateOne({questions: req.params.id}, { $pull: { questions: req.params.id } })
-        res.status(200).json({ question: question });
+        const user = await UserModel.updateOne({questions: req.params.id}, { $pull: { questions: req.params.id } })
+        res.status(200).json({ question: question , user: user});
     } catch (err) {
         res.status(500).json({ response: "Err in DB" });
     }
