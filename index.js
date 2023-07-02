@@ -11,9 +11,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const userRouter = require("./routes/user");
 const questionRouter = require("./routes/question");
+const answerRouter = require("./routes/answer");
 
 app.use(userRouter);
 app.use(questionRouter);
+app.use(answerRouter);
 
 mongoose
   .connect(

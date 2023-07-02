@@ -18,7 +18,6 @@ module.exports.POST_QUESTION = async (req, res) => {
     try {
         if (req.body.subject.length > 0 && req.body.details.length > 0) {
             const question_id = uniqid();
-            console.log("QuestionID: ", question_id);
             const question = new QuestionModel({
                 id: question_id,
                 subject: req.body.subject,
@@ -27,7 +26,7 @@ module.exports.POST_QUESTION = async (req, res) => {
             await question.save();
 
             const decoded = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
-            UserModel.updateOne({ id: decoded.userId }, { $push: { questions: question_id } }).exec();
+            UserModel.updateOne({ id: decoded.userId }, { $push: { questions_id: question_id } }).exec();
 
             res.status(200).json({ response: "Question was created successfully" });
         } else {
@@ -42,7 +41,7 @@ module.exports.POST_QUESTION = async (req, res) => {
 module.exports.DELETE_QUESTION_BY_ID = async (req, res) => {
     try {
         const question = await QuestionModel.deleteOne({ id: req.params.id });
-        const user = await UserModel.updateOne({questions: req.params.id}, { $pull: { questions: req.params.id } })
+        const user = await UserModel.updateOne({questions_id: req.params.id}, { $pull: { questions_id: req.params.id } })
         res.status(200).json({ question: question , user: user});
     } catch (err) {
         res.status(500).json({ response: "Err in DB" });
