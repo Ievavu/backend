@@ -1,8 +1,6 @@
 const QuestionModel = require("../models/question");
-const UserModel = require("../models/user");
 const AnswerModel = require("../models/answer");
 const uniqid = require("uniqid");
-const jwt = require("jsonwebtoken");
 
 
 module.exports.GET_ANSWERS_BY_QUESTION_ID = async (req, res) => {
