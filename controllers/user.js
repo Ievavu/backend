@@ -1,7 +1,7 @@
 const UserModel = require("../models/user");
 const uniqid = require("uniqid");
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 module.exports.REGISTER = async (req, res) => {
     try {
