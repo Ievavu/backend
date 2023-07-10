@@ -9,9 +9,9 @@ module.exports.GET_ANSWERS_BY_QUESTION_ID = async (req, res) => {
             $match: { id: req.params.id }
         }, {
             $lookup: {
-                from: "answers", // The name of the "Answers" collection
-                localField: "answers_ids", // The field in the "Questions" collection
-                foreignField: "id", // The field in the "Answers" collection
+                from: "answers", 
+                localField: "answers_ids",
+                foreignField: "id",
                 as: "answers"
             }
         }]);
